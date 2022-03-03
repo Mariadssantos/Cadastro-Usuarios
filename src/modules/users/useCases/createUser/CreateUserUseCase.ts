@@ -6,9 +6,14 @@ interface IRequest {
   email: string;
 }
 class CreateUserUseCase {
-  constructor(private usersRepository: IUsersRepository) {}
+  constructor(private usersRepository: IUsersRepository) { }
   execute({ email, name }: IRequest): User {
-    const res = this.usersRepository.create({name, email})
+    const verifyUserAlreardyExists = this.usersRepository.findByEmail(email);
+
+    if (verifyUserAlreardyExists) {
+      throw new Error("Não foi possível criar esse usuário com esse email!")
+    }
+    const res = this.usersRepository.create({ name, email })
     return res;
   }
 }
