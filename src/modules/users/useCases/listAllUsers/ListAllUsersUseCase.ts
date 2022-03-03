@@ -1,18 +1,20 @@
 /* eslint-disable */
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
-
-// interface IRequest {
-//   user_id: string;
-// }
-
+interface IRequest {
+  user_id: string;
+}
 class ListAllUsersUseCase {
-  constructor(private usersRepository: IUsersRepository) {}
+  constructor(private usersRepository: IUsersRepository) { }
 
-  execute(): User[] {
-    const users = this.usersRepository.list();
-    return users;
-
+  execute({ user_id }: IRequest): User[] {
+    const user = this.usersRepository.findById(user_id)
+    if (!user.Admin) {
+      throw new Error("Somente Admins podem ver a lista de usuários.")
+    } else {
+      const users = this.usersRepository.list();
+      return users;
+    }
   }
 }
 
