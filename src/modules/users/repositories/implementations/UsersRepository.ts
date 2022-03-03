@@ -40,16 +40,17 @@ class UsersRepository implements IUsersRepository {
   }
 
   turnAdmin(receivedUser: User): User {
-    if(!receivedUser.Admin){
+    if (!receivedUser.Admin) {
       receivedUser.Admin = true;
       return receivedUser;
     }
     return receivedUser;
   }
 
-  // findByEmail(email: string): User | undefined {
-  //   // Complete aqui
-  // }
+  findByEmail(email: string): User | undefined {
+    const user = this.users.find(user => user.email === email)
+    return user;
+  }
   list(): User[] {
     return this.users;
   }
