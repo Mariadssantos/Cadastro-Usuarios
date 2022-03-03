@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { response } from "express";
 import { User } from "../../model/User";
 import { IUsersRepository, ICreateUserDTO } from "../IUsersRepository";
 
@@ -22,30 +23,37 @@ class UsersRepository implements IUsersRepository {
   create({ name, email }: ICreateUserDTO): User {
     const user = new User();
 
-    Object.assign(user, {
+    const res = Object.assign(user, {
       name,
-      email
-      });
+      email,
+      created_at: new Date(),
+      Admin: false
+    });
 
-      this.users.push(user);
-      return
+    this.users.push(user);
+    return res;
   }
 
-  // findById(id: string): User | undefined {
-  //   // Complete aqui
-  // }
+  findById(user_id: string): User | undefined {
+    const user = this.users.find(user => user.id === user_id)
+    return user;
+  }
+
+  turnAdmin(receivedUser: User): User {
+    if(!receivedUser.Admin){
+      receivedUser.Admin = true;
+      return receivedUser;
+    }
+    return receivedUser;
+  }
 
   // findByEmail(email: string): User | undefined {
   //   // Complete aqui
   // }
+  list(): User[] {
+    return this.users;
+  }
 
-  // turnAdmin(receivedUser: User): User {
-  //   // Complete aqui
-  // }
-
-  // list(): User[] {
-  //   // Complete aqui
-  // }
 }
 
 export { UsersRepository };
