@@ -6,7 +6,7 @@ class ListAllUsersController {
 
   handle(request: Request, response: Response): Response {
     const { user_id } = request.params;
-    const users = this.listAllUsersUseCase.execute({ user_id });
+    const users = this.listAllUsersUseCase.execute({user_id});
     return response.status(200).send(users);
   }
 }

@@ -1,0 +1,61 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "UsersApi Documentation",
+        "description": "This is Users Api Documentation",
+        "version": "1.0.0",
+        "contact": {
+            "email": "mariaeduardasanntoss@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post":{
+                "tags": ["User"],
+                "summary": "Create User",
+                "description": "Create a new user",
+                "requestBody": {
+                    "content":{
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "exemple": {
+                                    "name": "User Name",
+                                    "email": "User Email"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "User already exists"
+                    }
+                }
+            }
+        },
+        "/users/:user_id/admin": {
+            "patch": {
+                "tags": ["User"],
+                "summary": "Turn User Admin",
+                "description": "Turn User Admin",
+                "requestParams": {
+                    "content": {
+                        
+                    }
+                }
+            }
+        }
+    }
+}
